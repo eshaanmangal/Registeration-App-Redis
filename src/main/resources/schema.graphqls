@@ -1,0 +1,18 @@
+type Query {
+    hello(who: String): String!
+}
+
+type Person {
+    id: String
+    name: String!
+    grade: Int
+    gender: Gender
+}
+
+enum Gender {
+   MALE, FEMALE
+}
+
+type Mutation {
+    createStudent(name: String!, grade:Int, gender:Gender): Person!
+}
