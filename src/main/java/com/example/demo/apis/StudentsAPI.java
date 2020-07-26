@@ -15,15 +15,21 @@ public class StudentsAPI {
     @Autowired
     private StudentService studentService;
 
-    @GetMapping(path = "/test")
-    public ResponseEntity<List<?>> test() {
+    @GetMapping(path = "/saveUser")
+    public ResponseEntity saveUser(@RequestParam(name = "User Full Name" , required = true) String fullName,
+                                        @RequestParam (name = "Email ID") String emailId,
+                                        @RequestParam (name = "Gender") String gender) {
         Student student = Student.builder()
-                .name("Eshaan")
-                .gender(Student.Gender.MALE)
+                .name(fullName)
+                .id(emailId)
                 .build();
 
-        studentService.save(student);
-        List <Student> list=studentService.getAllStudents();
-        return ResponseEntity.ok(list);
+        Student savedUser = studentService.save(student);
+        return ResponseEntity.ok(savedUser);
+    }
+
+    @GetMapping("/getUsers")
+    public ResponseEntity<List<?>> getAllUsers(){
+        return ResponseEntity.ok(studentService.getAllStudents());
     }
 }
